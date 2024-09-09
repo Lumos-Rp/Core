@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Assembly-Plugin</AssemblyName>
+		<OutputPath>..\plugins\HogsCore</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="HogsCore\**" />
+		<EmbeddedResource Remove="HogsCore\**" />
+		<None Remove="HogsCore\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\HogsLib\Hogs.Lib.csproj">
+			<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+		</ProjectReference>
+		<ProjectReference Include="..\Lib\HogWarp.Lib.csproj">
+			<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+		</ProjectReference>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="del $(OutputPath)*.deps.json" />
+		<Exec Command="del $(OutputPath)*.pdb" />
+		<Exec Command="del $(OutputPath)\Hogs.Lib.dll" />
+		<Exec Command="del $(OutputPath)\HogWarp.Lib.dll" />
+	</Target>
+
+</Project>

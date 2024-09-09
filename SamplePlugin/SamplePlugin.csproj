@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Assembly-Plugin</AssemblyName>
+		<OutputPath>..\plugins\SamplePlugin</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="SamplePlugin\**" />
+		<EmbeddedResource Remove="SamplePlugin\**" />
+		<None Remove="SamplePlugin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Lib\HogWarp.Lib.csproj" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="del $(OutputPath)*.deps.json" />
+		<Exec Command="del $(OutputPath)*.pdb" />
+		<Exec Command="del $(OutputPath)\Hogs.Lib.dll" />
+		<Exec Command="del $(OutputPath)\HogWarp.Lib.dll" />
+	</Target>
+	
+</Project>
